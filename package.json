@@ -1,0 +1,30 @@
+{
+  "name": "game-server",
+  "version": "0.0.1",
+  "description": "game server",
+  "main": "dist/index.js",
+  "scripts": {
+    "game:build": "rimraf dist/game && tsc --outDir dist/game",
+    "game:start": "node dist/game/server.js",
+    "game:dev": "nodemon --exec ts-node game/server.ts --watch game",
+    "test": "jest --watch",
+    "coverage": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "websocket": "^1.0.28",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.10",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.2"
+  }
+}

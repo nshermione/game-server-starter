@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "es2015"],
+    "module": "commonjs",
+    "outDir": "dist",
+    "sourceMap": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/"
+      ],
+      "typings/*": [
+        "src/typings/*"
+      ]
+    }
+  },
+  "include": [
+    "game/**/*.ts"
+  ],
+  "exclude": [
+    "game/test/**/*.spec.ts"
+  ]
+}

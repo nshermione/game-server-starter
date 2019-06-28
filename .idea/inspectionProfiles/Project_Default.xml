@@ -1,0 +1,12 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="ES6ConvertRequireIntoImport" enabled="false" level="WARNING" enabled_by_default="false">
+      <scope name="Project Files" level="WARNING" enabled="false">
+        <option name="myScopeOption" value="true" />
+      </scope>
+      <option name="myScopeOption" value="true" />
+    </inspection_tool>
+    <inspection_tool class="NodeModulesDependencies" enabled="true" level="WARNING" enabled_by_default="true" />
+  </profile>
+</component>
