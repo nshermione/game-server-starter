@@ -20,7 +20,7 @@ export function createLogger() {
 
   if (Config.env == 'development') {
     logger.add(new winston.transports.Console({format: winston.format.simple()}));
-    logger.add(new winston.transports.File({filename: 'combined.log'}));
+    logger.add(new winston.transports.File({filename: 'logs/combined.log'}));
   }
 
   return logger;
