@@ -3,6 +3,7 @@ import {model} from '../lib/core/model';
 
 export let Config = {
   env: 'development',
+  socketPort: 5000,
   games: [
     {
       gameId: 1,

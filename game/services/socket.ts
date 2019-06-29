@@ -1,46 +1,60 @@
-import * as websocket from 'websocket';
-import * as net from 'net';
+import * as WebSocket from 'ws';
+import {Config} from '../config';
+import * as uuidv4 from 'uuid/v4';
+import {Client} from '../models/client';
+import {User} from '../mappers/user';
+import {logger} from './logger';
+import {Lobby} from '../controllers/lobby';
 
-let wsServer: net.Server;
+let wsServer: any;
 
-export function createWebSocket(server) {
-  this.wsServer = new websocket.server({
-    httpServer: server,
-    // You should not use autoAcceptConnections for production
-    // applications, as it defeats all standard cross-origin protection
-    // facilities built into the protocol and the browser.  You should
-    // *always* verify the connection's origin and decide whether or not
-    // to accept it.
-    autoAcceptConnections: false
-  });
+export interface SocketCommands {
+  [event: string]: any;
+}
 
-  function originIsAllowed(origin) {
-    // put logic here to detect whether the specified origin is allowed.
-    return true;
+export interface SocketHandler {
+  listenedEvents: SocketCommands;
+}
+
+export class ServerSocket {
+  static emit(client: Client, data) {
+    client.socket.send(JSON.stringify(data));
   }
 
-  this.wsServer.on('request', function (request) {
-    if (!originIsAllowed(request.origin)) {
-      // Make sure we only accept requests from an allowed origin
-      request.reject();
-      console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
-      return;
-    }
+  static close() {
+    wsServer.close();
+  }
+}
 
-    let connection = request.accept('echo-protocol', request.origin);
-    console.log((new Date()) + ' Connection accepted.');
-    connection.on('message', function (message) {
-      if (message.type === 'utf8') {
-        console.log('Received Message: ' + message.utf8Data);
-        connection.sendUTF(message.utf8Data);
-      }
-      else if (message.type === 'binary') {
-        console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-        connection.sendBytes(message.binaryData);
+function dispatchEvent(target: SocketHandler, json) {
+  let eventFunc = target.listenedEvents[json.event];
+  if (eventFunc) {
+    eventFunc.call(target, json.data);
+  }
+}
+
+export function createWebSocket() {
+  wsServer = new WebSocket.Server({port: Config.socketPort});
+
+  wsServer.on('connection', (ws) => {
+    let client = new Client();
+    client.id = uuidv4();
+    client.user = User.build({
+      id: uuidv4(), email: '', createdDate: new Date(), updatedDate: new Date()
+    });
+    client.socket = ws;
+    client.isPlaying = false;
+    ws.on('message', (message) => {
+      if (message) {
+        try {
+          let json = JSON.parse(message);
+          dispatchEvent(Lobby, json);
+        } catch (e) {
+          logger.error('Error on receive message', e);
+        }
       }
     });
-    connection.on('close', function (reasonCode, description) {
-      console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
-    });
+
+    // ws.send('something');
   });
 }

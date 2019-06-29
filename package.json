@@ -19,8 +19,9 @@
   "dependencies": {
     "mysql2": "^1.6.5",
     "sequelize": "^5.9.0",
-    "websocket": "^1.0.28",
-    "winston": "^3.2.1"
+    "uuid": "^3.3.2",
+    "winston": "^3.2.1",
+    "ws": "^7.0.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",

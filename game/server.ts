@@ -2,20 +2,16 @@ import {loadConfig} from './config';
 import * as http from 'http';
 import {createLogger, logger} from './services/logger';
 import {createWebSocket} from './services/socket';
+import {db, MySQLProvider} from '../lib/core/db';
+import {createMapping} from './mappers/mappings';
 
-function createServer() {
-  let server = http.createServer(function (request, response) {
-    logger.debug((new Date()) + ' Received request for ' + request.url);
-    response.writeHead(404);
-    response.end();
-  });
-  server.listen(8080, function () {
-    logger.debug((new Date()) + ' Server is listening on port 8080');
-  });
-  return server;
+function createDatabase() {
+  db.useProvider(MySQLProvider);
+  createMapping();
+  return db.auth();
 }
 
 loadConfig()
   .then(() => createLogger())
-  .then(() => createServer())
-  .then((server) => createWebSocket(server));
+  .then(() => createDatabase())
+  .then(() => createWebSocket);

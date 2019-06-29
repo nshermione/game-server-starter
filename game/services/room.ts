@@ -1,4 +1,4 @@
-import {Room} from '../model/room';
+import {Room} from '../models/room';
 
 export const room = {
   getRoom: (roomId?) => {

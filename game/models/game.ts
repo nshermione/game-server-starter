@@ -6,7 +6,6 @@ export interface IGame {
   pause();
   resume();
   stop();
-  handleCommands();
 }
 
 export class Game {

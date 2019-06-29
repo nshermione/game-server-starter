@@ -1,6 +1,8 @@
-import {IGame} from '../../model/game';
+import {IGame} from '../../models/game';
+import {SocketCommands, SocketHandler} from '../../services/socket';
 
-export class KittyCards implements IGame {
+export class KittyCards implements IGame, SocketHandler {
+  gameName = 'kittycards';
 
   pause() {
   }
@@ -14,4 +16,6 @@ export class KittyCards implements IGame {
   stop() {
   }
 
+  listenedEvents: SocketCommands = {
+  };
 }

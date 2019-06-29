@@ -1,12 +1,11 @@
 import {db, MySQLProvider} from '../../lib/core/db';
-
-// BEGIN temporary fix conflict: mysql2 + jest
 import * as iconv from 'iconv-lite';
 import {loadConfig} from '../../game/config';
 import {createLogger} from '../../game/services/logger';
-import {User} from '../../game/mapper/user';
-import {createMapping} from '../../game/mapper/mappings';
+import {User} from '../../game/mappers/user';
+import {createMapping} from '../../game/mappers/mappings';
 
+// BEGIN temporary fix conflict: mysql2 + jest
 iconv.encodingExists('foo');
 // END fix
 
