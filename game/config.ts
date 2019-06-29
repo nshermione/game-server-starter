@@ -1,12 +1,19 @@
 import * as fs from 'fs';
-import {model} from './core/model';
+import {model} from '../lib/core/model';
 
 export let Config = {
-  env: 'development'
+  env: 'development',
+  games: [
+    {
+      gameId: 1,
+      filePath: 'kittycards/kittycards.js',
+      className: 'KittyCards'
+    }
+  ]
 };
 
 export const loadConfig = () => {
-  let env = process.env.ENV || Config.env;
+  let env = process.env.NODE_ENV || Config.env;
   let configFile = `config/${env}.json`;
   return new Promise<any>(resolve => {
     fs.readFile(configFile, (err, data) => {

@@ -10,17 +10,13 @@ export function createLogger() {
     format: winston.format.json(),
     defaultMeta: {service: 'user-service'},
     transports: [
-      //
-      // - Write to all logs with level `info` and below to `combined.log`
-      // - Write all logs error (and below) to `error.log`.
-      //
-      new winston.transports.File({filename: 'logs/error.log', level: 'logs/error'}),
+      new winston.transports.File({filename: 'logs/game-error.log', level: 'error'}),
     ]
   });
 
   if (Config.env == 'development') {
     logger.add(new winston.transports.Console({format: winston.format.simple()}));
-    logger.add(new winston.transports.File({filename: 'logs/combined.log'}));
+    logger.add(new winston.transports.File({filename: 'logs/game-info.log'}));
   }
 
   return logger;

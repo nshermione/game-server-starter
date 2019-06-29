@@ -12,7 +12,7 @@ export enum ACTIONS {
 
 }
 
-export enum RunState {
+export enum RunStateType {
   STARTING,
   STARTED,
   STOPPING,

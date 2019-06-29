@@ -7,13 +7,18 @@
     "game:build": "rimraf dist/game && tsc --outDir dist/game",
     "game:start": "node dist/game/server.js",
     "game:dev": "nodemon --exec ts-node game/server.ts --watch game",
-    "test": "jest --watch",
+    "migrate:dev": "npx sequelize-cli db:migrate --env=development",
+    "migrate:test": "npx sequelize-cli db:migrate --env=test",
+    "migrate:production": "npx sequelize-cli db:migrate --env=test",
+    "test": "NODE_ENV=test && jest",
     "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.9.0",
     "websocket": "^1.0.28",
     "winston": "^3.2.1"
   },
@@ -23,6 +28,7 @@
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "rimraf": "^2.6.3",
+    "sequelize-cli": "^5.5.0",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
