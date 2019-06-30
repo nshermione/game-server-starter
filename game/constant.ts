@@ -1,5 +1,6 @@
-export const KEYS = {
-
+export let KEYS = {
+  EMAIL: 'email',
+  PASSWORD: 'password'
 };
 
 export const EVENTS = {

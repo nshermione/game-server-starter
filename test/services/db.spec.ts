@@ -15,12 +15,11 @@ beforeAll(async () => {
     .then(() => createDatabase())
     .then(() => {
       let user = User.build({
-        displayName: 'thinhth',
-        email: 'thinhth@gmail.com',
+        displayName: 'thinhth23',
+        email: 'thinhth23@gmail.com',
         createdDate: new Date(),
         updatedDate: new Date()
       });
-      expect(user.displayName).toBe('thinhth');
       return user.save();
     });
 });
@@ -40,7 +39,7 @@ test('findAll', async () => {
 
 test('findUser', async () => {
   let user = await User.findOne({
-    where: {displayName: 'thinhth'}
+    where: {displayName: 'thinhth23'}
   });
   expect(user).not.toBeNull();
 });

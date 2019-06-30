@@ -5,7 +5,9 @@ import {db} from '../services/db';
 export class User extends Sequelize.Model {
   public readonly id!: number;
   public email!: string;
+  public password: string;
   public displayName: string;
+  public lastLogin: Date;
   public readonly createdAt!: Date;
   public updatedAt!: Date;
 }
@@ -18,13 +20,21 @@ export function createUserMapping() {
       autoIncrement: true,
       primaryKey: true,
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     displayName: {
       type: new DataTypes.STRING(128),
       allowNull: true,
     },
-    email: {
+    lastLogin: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

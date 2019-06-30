@@ -1,13 +1,17 @@
-import {loadConfig} from '../../game/config';
+import {Config, loadConfig} from '../../game/config';
 import {createWebSocket, ServerSocket} from '../../game/services/socket';
 import {createLogger} from '../../game/services/logger';
 import * as WebSocket from 'ws';
-import {createDatabase} from '../../game/utils';
+import {createDatabase, createServer} from '../../game/utils';
 
-const wsUrl = 'ws://localhost:6000';
+const port = 6002;
+const wsUrl = 'ws://localhost:' + port;
 
 beforeAll(async () => {
   await loadConfig()
+    .then(() => {
+      Config.socketPort = port;
+    })
     .then(() => createLogger())
     .then(() => createDatabase())
     .then(() => createWebSocket());

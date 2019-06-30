@@ -7,6 +7,7 @@
     "game:build": "rimraf dist/game && tsc --outDir dist/game",
     "game:start": "node dist/game/server.js",
     "game:dev": "nodemon --exec ts-node game/server.ts --watch game",
+    "migrate:gen": "npx sequelize-cli migration:generate --name",
     "migrate:dev": "npx sequelize-cli db:migrate --env=development",
     "migrate:test": "npx sequelize-cli db:migrate --env=test",
     "migrate:production": "npx sequelize-cli db:migrate --env=test",
@@ -17,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "md5": "^2.2.1",
     "mysql2": "^1.6.5",
     "sequelize": "^5.9.0",
     "uuid": "^3.3.2",

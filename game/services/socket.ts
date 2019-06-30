@@ -13,6 +13,11 @@ export interface SocketEvent {
   (client: Client, data: any);
 }
 
+export interface SocketData {
+  event: string;
+  data: any;
+}
+
 export interface SocketCommands {
   [event: string]: SocketEvent;
 }
@@ -22,15 +27,34 @@ export interface SocketHandler {
 }
 
 export class ServerSocket {
-  static emit(client: Client, data) {
+  static sendOne(client: Client, data: SocketData) {
     client.socket.send(JSON.stringify(data));
+  }
+
+  static sendList(clients: Client[], data: SocketData) {
+    for (let client of clients) {
+      ServerSocket.sendOne(client, data);
+    }
+  }
+
+  /**
+   * Send to all clients of system (all games)
+   * @param data
+   */
+  static boardcast(data: SocketData) {
+    for (let client of wsServer.clients) {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    }
   }
 
   static close() {
     return new Promise((resolve) => {
       if (httpServer) {
-        httpServer.close();
-        resolve();
+        httpServer.close(() => {
+          resolve();
+        });
       } else if (wsServer) {
         wsServer.close(() => {
           resolve();
