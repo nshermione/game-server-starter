@@ -7,9 +7,14 @@ import {logger} from './logger';
 import {Lobby} from '../controllers/lobby';
 
 let wsServer: any;
+let httpServer: any;
+
+export interface SocketEvent {
+  (client: Client, data: any);
+}
 
 export interface SocketCommands {
-  [event: string]: any;
+  [event: string]: SocketEvent;
 }
 
 export interface SocketHandler {
@@ -22,19 +27,33 @@ export class ServerSocket {
   }
 
   static close() {
-    wsServer.close();
+    return new Promise((resolve) => {
+      if (httpServer) {
+        httpServer.close();
+        resolve();
+      } else if (wsServer) {
+        wsServer.close(() => {
+          resolve();
+        });
+      }
+    })
   }
 }
 
-function dispatchEvent(target: SocketHandler, json) {
+function dispatchEvent(target: SocketHandler, client: Client, json) {
   let eventFunc = target.listenedEvents[json.event];
   if (eventFunc) {
-    eventFunc.call(target, json.data);
+    eventFunc.call(target, client, json.data);
   }
 }
 
-export function createWebSocket() {
-  wsServer = new WebSocket.Server({port: Config.socketPort});
+export function createWebSocket(server?) {
+  if (server) {
+    wsServer = new WebSocket.Server({server});
+    httpServer = server;
+  } else {
+    wsServer = new WebSocket.Server({port: Config.socketPort});
+  }
 
   wsServer.on('connection', (ws) => {
     let client = new Client();
@@ -48,13 +67,15 @@ export function createWebSocket() {
       if (message) {
         try {
           let json = JSON.parse(message);
-          dispatchEvent(Lobby, json);
+          dispatchEvent(Lobby, client, json);
         } catch (e) {
           logger.error('Error on receive message', e);
         }
       }
     });
-
-    // ws.send('something');
   });
+
+  if (server) {
+    server.listen(Config.socketPort);
+  }
 }

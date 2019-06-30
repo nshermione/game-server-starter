@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import {model} from '../lib/core/model';
+import {ObjectUtils} from '../lib/core/objectUtils';
 
 export let Config = {
   env: 'development',
@@ -19,8 +19,11 @@ export const loadConfig = () => {
   return new Promise<any>(resolve => {
     fs.readFile(configFile, (err, data) => {
       if (!err) {
-        let json = data.toJSON();
-        model.merge(Config, json);
+        let dataString = data.toString();
+        if (dataString) {
+          ObjectUtils.merge(Config, JSON.parse(dataString));
+        }
+
       }
       resolve();
     });

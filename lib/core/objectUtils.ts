@@ -1,4 +1,4 @@
-export const model = {
+export const ObjectUtils = {
   merge: (oldModel, newModel) => {
     let keys = Object.keys(newModel);
     for (let key of keys) {

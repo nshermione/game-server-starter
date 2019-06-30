@@ -3,6 +3,7 @@ import {createWebSocket, ServerSocket} from '../../game/services/socket';
 import {createLogger} from '../../game/services/logger';
 import * as WebSocket from 'ws';
 import {createDatabase} from '../../game/utils';
+import {EVENTS} from '../../game/constant';
 
 const wsUrl = 'ws://localhost:6000';
 
@@ -17,19 +18,17 @@ afterAll(async () => {
   await ServerSocket.close();
 });
 
-test('connection', (done) => {
+test('client info', (done) => {
   const ws = new WebSocket(wsUrl);
   ws.on('open', () => {
-    done();
+    ws.on('message', (data) => {
+      let json = JSON.parse(data);
+      expect(json.event).toBe(EVENTS.SET_CLIENT_INFO);
+      done();
+    });
+    ws.send(JSON.stringify({
+      event: EVENTS.SET_CLIENT_INFO,
+      data: {}
+    }));
   });
-}, 1000);
-
-test('close', (done) => {
-  const ws = new WebSocket(wsUrl);
-  ws.on('open', () => {
-    ws.close();
-  });
-  ws.on('close', () => {
-    done();
-  })
 }, 1000);

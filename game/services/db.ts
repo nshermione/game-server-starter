@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import {logger} from '../../game/services/logger';
+import {logger} from './logger';
 import * as databases from '../../config/database.js';
 
 export interface ISQLProvider {
@@ -19,7 +19,8 @@ export class MySQLProvider implements ISQLProvider {
       databaseConfig.username,
       databaseConfig.password, {
         host: databaseConfig.host,
-        dialect: databaseConfig.dialect
+        dialect: databaseConfig.dialect,
+        logging: databaseConfig.logging
       });
   }
 

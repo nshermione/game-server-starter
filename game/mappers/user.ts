@@ -1,5 +1,5 @@
 import Sequelize, {DataTypes} from 'sequelize';
-import {db} from '../../lib/core/db';
+import {db} from '../services/db';
 
 
 export class User extends Sequelize.Model {
