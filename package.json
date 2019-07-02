@@ -20,6 +20,7 @@
   "dependencies": {
     "md5": "^2.2.1",
     "mysql2": "^1.6.5",
+    "redis": "^2.8.0",
     "sequelize": "^5.9.0",
     "uuid": "^3.3.2",
     "winston": "^3.2.1",

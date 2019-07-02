@@ -62,3 +62,6 @@ typings/
 
 # build directory
 dist/
+
+# redis
+cache/redis-5.0.5/

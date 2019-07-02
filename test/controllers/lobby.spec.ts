@@ -79,4 +79,4 @@ test('login new user', (done) => {
       data: {}
     }));
   });
-}, 1000);
+}, 2000);
