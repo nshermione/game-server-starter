@@ -2,10 +2,10 @@ import * as winston from 'winston';
 import {Config} from '../config';
 import {Logger} from 'winston';
 
-export let logger: Logger;
+export let gameLogger: Logger;
 
-export function createLogger() {
-  logger = winston.createLogger({
+export function createGameLogger() {
+  gameLogger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
     defaultMeta: {service: 'user-service'},
@@ -15,9 +15,9 @@ export function createLogger() {
   });
 
   if (Config.env == 'development') {
-    logger.add(new winston.transports.Console({format: winston.format.simple()}));
-    logger.add(new winston.transports.File({filename: 'logs/game-info.log'}));
+    gameLogger.add(new winston.transports.Console({format: winston.format.simple()}));
+    gameLogger.add(new winston.transports.File({filename: 'logs/game-info.log'}));
   }
 
-  return logger;
+  return gameLogger;
 }

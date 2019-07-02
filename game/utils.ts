@@ -1,6 +1,6 @@
 import * as http from 'http';
-import {db, MySQLProvider} from './services/db';
-import {createMapping} from './mappers/mappings';
+import {db, MySQLProvider} from '../db/db';
+import {createMapping} from '../db/mappers/mappings';
 
 export function createDatabase() {
   db.useProvider(MySQLProvider);

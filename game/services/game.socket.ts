@@ -2,29 +2,13 @@ import * as WebSocket from 'ws';
 import {Config} from '../config';
 import * as uuidv4 from 'uuid/v4';
 import {Client} from '../models/client';
-import {User} from '../mappers/user';
-import {logger} from './logger';
+import {User} from '../../db/mappers/user';
+import {gameLogger} from './game.logger';
 import {Lobby} from '../controllers/lobby';
+import {SocketData, SocketHandler} from '../../shared/core/network';
 
 let wsServer: any;
 let httpServer: any;
-
-export interface SocketEvent {
-  (client: Client, data: any);
-}
-
-export interface SocketData {
-  event: string;
-  data: any;
-}
-
-export interface SocketCommands {
-  [event: string]: SocketEvent;
-}
-
-export interface SocketHandler {
-  listenedEvents: SocketCommands;
-}
 
 export class ServerSocket {
   static sendOne(client: Client, data: SocketData) {
@@ -93,7 +77,7 @@ export function createWebSocket(server?) {
           let json = JSON.parse(message);
           dispatchEvent(Lobby, client, json);
         } catch (e) {
-          logger.error('Error on receive message', e);
+          gameLogger.error('Error on receive message', e);
         }
       }
     });

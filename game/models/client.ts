@@ -1,4 +1,4 @@
-import {User} from '../mappers/user';
+import {User} from '../../db/mappers/user';
 
 export class Client {
   id!: number;

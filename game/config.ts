@@ -1,9 +1,11 @@
 import * as fs from 'fs';
-import {ObjectUtils} from '../lib/core/objectUtils';
+import {ObjectUtils} from '../shared/core/utils';
 
 export let Config = {
   env: 'development',
   socketPort: 5000,
+  botPort: 5001,
+  apiPort: 5002,
   games: [
     {
       gameId: 1,

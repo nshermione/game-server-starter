@@ -1,11 +1,11 @@
 import {Config, loadConfig} from '../../game/config';
-import {createWebSocket, ServerSocket} from '../../game/services/socket';
-import {createLogger} from '../../game/services/logger';
+import {createWebSocket, ServerSocket} from '../../game/services/game.socket';
+import {createGameLogger} from '../../game/services/game.logger';
 import * as WebSocket from 'ws';
 import {createDatabase} from '../../game/utils';
 import {EVENTS, KEYS} from '../../game/constant';
-import {User} from '../../game/mappers/user';
-import {db} from '../../game/services/db';
+import {User} from '../../db/mappers/user';
+import {db} from '../../db/db';
 import * as md5 from 'md5';
 
 const port = 6001;
@@ -16,7 +16,7 @@ beforeAll(async () => {
     .then(() => {
       Config.socketPort = port;
     })
-    .then(() => createLogger())
+    .then(() => createGameLogger())
     .then(() => createDatabase())
     .then(() => {
       let user = User.build({

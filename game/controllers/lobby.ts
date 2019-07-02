@@ -1,7 +1,8 @@
 import {EVENTS, KEYS} from '../constant';
-import {ServerSocket, SocketHandler} from '../services/socket';
+import {ServerSocket} from '../services/game.socket';
 import {Client} from '../models/client';
-import {User} from '../mappers/user';
+import {User} from '../../db/mappers/user';
+import {SocketHandler} from '../../shared/core/network';
 
 export const Lobby: SocketHandler = {
   listenedEvents: {

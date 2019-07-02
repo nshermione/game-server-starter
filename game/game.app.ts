@@ -1,9 +1,9 @@
 import {loadConfig} from './config';
-import {createLogger} from './services/logger';
-import {createWebSocket} from './services/socket';
+import {createGameLogger} from './services/game.logger';
+import {createWebSocket} from './services/game.socket';
 import {createDatabase} from './utils';
 
 loadConfig()
-  .then(() => createLogger())
+  .then(() => createGameLogger())
   .then(() => createDatabase())
   .then(() => createWebSocket());

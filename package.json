@@ -4,9 +4,11 @@
   "description": "game server",
   "main": "dist/index.js",
   "scripts": {
-    "game:build": "rimraf dist/game && tsc --outDir dist/game",
-    "game:start": "node dist/game/server.js",
-    "game:dev": "nodemon --exec ts-node game/server.ts --watch game",
+    "build": "rimraf dist && tsc --outDir dist",
+    "game:start": "node dist/game/game.app.js",
+    "game:dev": "nodemon --exec ts-node game/game.app.ts --watch game",
+    "bot:start": "node dist/game/bot.app.js",
+    "bot:dev": "nodemon --exec ts-node bot/bot.app.ts --watch bot",
     "migrate:gen": "npx sequelize-cli migration:generate --name",
     "migrate:dev": "npx sequelize-cli db:migrate --env=development",
     "migrate:test": "npx sequelize-cli db:migrate --env=test",
@@ -18,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "md5": "^2.2.1",
     "mysql2": "^1.6.5",
     "redis": "^2.8.0",

@@ -1,8 +1,8 @@
 import {Config, loadConfig} from '../../game/config';
-import {createWebSocket, ServerSocket} from '../../game/services/socket';
-import {createLogger} from '../../game/services/logger';
+import {createWebSocket, ServerSocket} from '../../game/services/game.socket';
+import {createGameLogger} from '../../game/services/game.logger';
 import * as WebSocket from 'ws';
-import {createDatabase, createServer} from '../../game/utils';
+import {createDatabase} from '../../game/utils';
 
 const port = 6002;
 const wsUrl = 'ws://localhost:' + port;
@@ -12,7 +12,7 @@ beforeAll(async () => {
     .then(() => {
       Config.socketPort = port;
     })
-    .then(() => createLogger())
+    .then(() => createGameLogger())
     .then(() => createDatabase())
     .then(() => createWebSocket());
 });
@@ -35,5 +35,5 @@ test('close', (done) => {
   });
   ws.on('close', () => {
     done();
-  })
+  });
 }, 1000);

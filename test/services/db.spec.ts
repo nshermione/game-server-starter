@@ -1,8 +1,8 @@
-import {db} from '../../game/services/db';
+import {db} from '../../db/db';
 import * as iconv from 'iconv-lite';
 import {loadConfig} from '../../game/config';
-import {createLogger} from '../../game/services/logger';
-import {User} from '../../game/mappers/user';
+import {createGameLogger} from '../../game/services/game.logger';
+import {User} from '../../db/mappers/user';
 import {createDatabase} from '../../game/utils';
 
 // BEGIN temporary fix conflict: mysql2 + jest
@@ -11,7 +11,7 @@ iconv.encodingExists('foo');
 
 beforeAll(async () => {
   await loadConfig()
-    .then(() => createLogger())
+    .then(() => createGameLogger())
     .then(() => createDatabase())
     .then(() => {
       let user = User.build({
