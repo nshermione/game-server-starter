@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/game-server-starter
     docker:
     - image: circleci/node:10.15.3
-    - image: circleci/mysql:5.7.14
+    - image: circleci/mysql:5.7.26
     - image: circleci/redis:5.0.5
     steps:
     - checkout
