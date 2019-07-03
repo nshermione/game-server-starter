@@ -5,6 +5,11 @@ jobs:
     docker:
     - image: circleci/node:10.15.3
     - image: circleci/mysql:5.7.26
+      environment:
+        MYSQL_ROOT_PASSWORD: rootpw
+        MYSQL_DATABASE: games_test
+        MYSQL_USER: root
+        MYSQL_PASSWORD:
     - image: circleci/redis:5.0.5
     steps:
     - checkout
@@ -22,9 +27,6 @@ jobs:
     - run:
         name: Install MySQL CLI
         command: sudo apt-get install mysql-client
-    - run:
-        name: Create test database
-        command: mysql -h 127.0.0.1 -u root --execute="CREATE DATABASE games_test;"
     - run:
         name: update-npm
         command: 'sudo npm install -g npm@latest'
