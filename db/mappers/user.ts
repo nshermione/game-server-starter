@@ -8,6 +8,7 @@ export class User extends Sequelize.Model {
   public password: string;
   public displayName: string;
   public lastLogin: Date;
+  public api!: boolean;
   public readonly createdAt!: Date;
   public updatedAt!: Date;
 }
@@ -27,6 +28,11 @@ export function createUserMapping() {
     password: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    api: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0
     },
     displayName: {
       type: new DataTypes.STRING(128),

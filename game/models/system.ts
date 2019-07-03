@@ -1,4 +1,4 @@
-import {RunStateType} from '../constant';
+import {RunStateType} from '../../shared/constant';
 import {Game} from './game';
 import {Client} from './client';
 

@@ -1,11 +1,12 @@
 import {Logger} from 'winston';
 import * as winston from 'winston';
 import {Config} from '../game/config';
+import {setLogger} from '../shared/core/logger';
 
-export let botLogger: Logger;
+let apiLogger: Logger;
 
-export function createBotLogger() {
-  botLogger = winston.createLogger({
+export function createApiLogger() {
+  apiLogger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
     defaultMeta: {service: 'bot-service'},
@@ -15,9 +16,10 @@ export function createBotLogger() {
   });
 
   if (Config.env == 'development') {
-    botLogger.add(new winston.transports.Console({format: winston.format.simple()}));
-    botLogger.add(new winston.transports.File({filename: 'logs/bot-info.log'}));
+    apiLogger.add(new winston.transports.Console({format: winston.format.simple()}));
+    apiLogger.add(new winston.transports.File({filename: 'logs/bot-info.log'}));
   }
 
-  return botLogger;
+  setLogger(apiLogger);
+  return apiLogger;
 }

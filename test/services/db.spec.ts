@@ -1,7 +1,7 @@
 import {db} from '../../db/db';
 import * as iconv from 'iconv-lite';
 import {loadConfig} from '../../game/config';
-import {createGameLogger} from '../../game/services/game.logger';
+import {createGameLogger} from '../../game/services/logger';
 import {User} from '../../db/mappers/user';
 import {createDatabase} from '../../game/utils';
 

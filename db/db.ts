@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
-import {gameLogger} from '../game/services/game.logger';
 import * as databases from '../config/database.js';
+import {logger} from '../shared/core/logger';
 
 export interface ISQLProvider {
   createConnection(): Promise<boolean>;
@@ -29,11 +29,11 @@ export class MySQLProvider implements ISQLProvider {
       this.sequelize
         .authenticate()
         .then(() => {
-          gameLogger.debug('Connection has been established successfully.');
+          logger.debug('Connection has been established successfully.');
           resolve(true);
         })
         .catch(err => {
-          gameLogger.error('Unable to connect to the database:', err);
+          logger.error('Unable to connect to the database:', err);
           resolve(false);
         });
     });

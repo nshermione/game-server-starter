@@ -1,7 +1,11 @@
 export interface Route {
   path: string;
   method?: string;
-  component: RouteComponent;
+  components: RouteComponent[];
+}
+
+export interface RouteMiddleware {
+  process(req, res, next?): any;
 }
 
 export interface RouteComponent {
@@ -11,6 +15,7 @@ export interface RouteComponent {
 export function appUseRoutes(app, routes: Route[]) {
   for (let route of routes) {
     let method = route.method || "get";
-    app[method](route.path, route.component.process);
+    let processes = route.components.map(comp => comp.process);
+    app[method](route.path, ...processes);
   }
 }

@@ -1,5 +1,5 @@
 import {loadConfig} from './config';
-import {createGameLogger} from './services/game.logger';
+import {createGameLogger} from './services/logger';
 import {createWebSocket} from './services/game.socket';
 import {createDatabase} from './utils';
 

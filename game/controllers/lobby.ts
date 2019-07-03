@@ -1,4 +1,4 @@
-import {EVENTS, KEYS} from '../constant';
+import {EVENTS, KEYS} from '../../shared/constant';
 import {ServerSocket} from '../services/game.socket';
 import {Client} from '../models/client';
 import {User} from '../../db/mappers/user';

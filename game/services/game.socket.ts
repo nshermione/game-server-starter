@@ -3,9 +3,9 @@ import {Config} from '../config';
 import * as uuidv4 from 'uuid/v4';
 import {Client} from '../models/client';
 import {User} from '../../db/mappers/user';
-import {gameLogger} from './game.logger';
 import {Lobby} from '../controllers/lobby';
 import {SocketData, SocketHandler} from '../../shared/core/network';
+import {logger} from '../../shared/core/logger';
 
 let wsServer: any;
 let httpServer: any;
@@ -77,7 +77,7 @@ export function createWebSocket(server?) {
           let json = JSON.parse(message);
           dispatchEvent(Lobby, client, json);
         } catch (e) {
-          gameLogger.error('Error on receive message', e);
+          logger.error('Error on receive message', e);
         }
       }
     });

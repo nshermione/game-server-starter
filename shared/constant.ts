@@ -1,6 +1,25 @@
 export let KEYS = {
+  COUNT: 'count',
+  NAME: 'name',
+  MESSAGE: 'message',
+  ID: 'id',
+  API: 'api',
+  TOKEN: 'token',
+  USER_ID: 'userId',
   EMAIL: 'email',
   PASSWORD: 'password'
+};
+
+export let MESSAGES = {
+  INVALID_TOKEN: 'Token is expired or invalid',
+};
+
+export let ERROR_TYPES = {
+  AUTH_FAILED: 'Auth error'
+};
+
+export const HEADERS = {
+  TOKEN: 'token'
 };
 
 export const EVENTS = {

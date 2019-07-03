@@ -1,8 +1,9 @@
 import * as winston from 'winston';
 import {Config} from '../config';
 import {Logger} from 'winston';
+import {setLogger} from '../../shared/core/logger';
 
-export let gameLogger: Logger;
+let gameLogger: Logger;
 
 export function createGameLogger() {
   gameLogger = winston.createLogger({
@@ -19,5 +20,6 @@ export function createGameLogger() {
     gameLogger.add(new winston.transports.File({filename: 'logs/game-info.log'}));
   }
 
+  setLogger(gameLogger);
   return gameLogger;
 }

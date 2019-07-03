@@ -1,9 +1,9 @@
 import {Config, loadConfig} from '../../game/config';
 import {createWebSocket, ServerSocket} from '../../game/services/game.socket';
-import {createGameLogger} from '../../game/services/game.logger';
+import {createGameLogger} from '../../game/services/logger';
 import * as WebSocket from 'ws';
 import {createDatabase} from '../../game/utils';
-import {EVENTS, KEYS} from '../../game/constant';
+import {EVENTS, KEYS} from '../../shared/constant';
 import {User} from '../../db/mappers/user';
 import {db} from '../../db/db';
 import * as md5 from 'md5';

@@ -1,5 +1,5 @@
 import {Room} from './room';
-import {RunStateType} from '../constant';
+import {RunStateType} from '../../shared/constant';
 
 export interface IGame {
   start();

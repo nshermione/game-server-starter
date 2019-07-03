@@ -4,8 +4,10 @@ import {ObjectUtils} from '../shared/core/utils';
 export let Config = {
   env: 'development',
   socketPort: 5000,
-  botPort: 5001,
-  apiPort: 5002,
+  apiPort: 5001,
+  apiSecret: "fd37b4b54205b3f0afc9004fa1100374",
+  apiExpires: 60 * 60,
+  webPort: 5002,
   games: [
     {
       gameId: 1,
