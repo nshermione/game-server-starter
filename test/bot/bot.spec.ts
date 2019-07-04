@@ -2,7 +2,6 @@ import {Config, loadConfig} from '../../game/config';
 import {createApiLogger} from '../../api/logger';
 import {createDatabase} from '../../game/utils';
 import {db} from '../../db/db';
-import {User} from '../../db/mappers/user';
 import {creatApiApp, shutdownApiApp} from '../../api/utils';
 import * as md5 from 'md5';
 import * as request from 'request';
@@ -11,34 +10,19 @@ import {KEYS} from '../../shared/constant';
 const port = 6005;
 const apiUrl = 'http://localhost:' + port;
 
-beforeAll(async () => {
-  await loadConfig()
+beforeAll((done) => {
+  loadConfig()
     .then(() => {
       Config.apiPort = port;
     })
     .then(() => createApiLogger())
     .then(() => createDatabase())
-    .then(() => initDB())
-    .then(() => creatApiApp());
+    .then(() => creatApiApp())
+    .then(() => done());
 });
-
-function initDB() {
-  let user = User.build({
-    displayName: 'thinhth23',
-    password: md5('123456'),
-    email: 'thinhth23@gmail.com',
-    api: true,
-    createdDate: new Date(),
-    updatedDate: new Date()
-  });
-  return user.save();
-}
 
 afterAll(async () => {
   await shutdownApiApp();
-  await User.destroy({
-    where: {}
-  });
   db.close();
 });
 

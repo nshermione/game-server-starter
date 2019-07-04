@@ -12,22 +12,10 @@ iconv.encodingExists('foo');
 beforeAll(async () => {
   await loadConfig()
     .then(() => createGameLogger())
-    .then(() => createDatabase())
-    .then(() => {
-      let user = User.build({
-        displayName: 'thinhth23',
-        email: 'thinhth23@gmail.com',
-        createdDate: new Date(),
-        updatedDate: new Date()
-      });
-      return user.save();
-    });
+    .then(() => createDatabase());
 });
 
-afterAll(async () => {
-  await User.destroy({
-    where: {}
-  });
+afterAll(() => {
   db.close();
 });
 

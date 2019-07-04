@@ -18,24 +18,11 @@ beforeAll(async () => {
     })
     .then(() => createGameLogger())
     .then(() => createDatabase())
-    .then(() => {
-      let user = User.build({
-        displayName: 'thinhth23',
-        email: 'thinhth23@gmail.com',
-        password: md5('123456'),
-        createdDate: new Date(),
-        updatedDate: new Date()
-      });
-      return user.save();
-    })
     .then(() => createWebSocket());
 });
 
 afterAll(async () => {
   await ServerSocket.close();
-  await User.destroy({
-    where: {}
-  });
   db.close();
 });
 

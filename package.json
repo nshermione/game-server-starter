@@ -13,8 +13,11 @@
     "migrate:dev": "npx sequelize-cli db:migrate --env=development",
     "migrate:test": "npx sequelize-cli db:migrate --env=test",
     "migrate:production": "npx sequelize-cli db:migrate --env=test",
-    "test": "NODE_ENV=test && jest",
-    "test:bot": "NODE_ENV=test && jest test/bot/bot.spec.ts",
+    "seeder:test:gen": "npx sequelize-cli seed:generate --name=dummy-test --env=test",
+    "seeder:test": "npx sequelize-cli db:seed --env=test --seed 20190704170451-dummy-test.js",
+    "seeder:test:undo": "npx sequelize-cli db:seed:undo:all --env=test",
+    "test": "npm run seeder:test && NODE_ENV=test && jest && npm run seeder:test:undo",
+    "test:bot": "npm run seeder:test && NODE_ENV=test && jest test/bot/bot.spec.ts && npm run seeder:test:undo",
     "coverage": "jest --coverage"
   },
   "keywords": [],
