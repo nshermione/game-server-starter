@@ -6,8 +6,10 @@ jobs:
     - image: circleci/node:10.15.3
     - image: circleci/mysql:5.7.26
       environment:
-        MYSQL_ROOT_PASSWORD: ''
+        MYSQL_ROOT_PASSWORD: rootpw
         MYSQL_DATABASE: games_test
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
     - image: circleci/redis:5.0.5
     steps:
     - checkout
